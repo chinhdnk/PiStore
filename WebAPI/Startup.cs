@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using AppCore.Interfaces;
 
 namespace API
 {
@@ -16,14 +17,14 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
             });
-            services.AddDbContext<IStoreContext, StoreContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")) );
-            services.AddScoped<IStoreContext, StoreContext>();
+            services.AddDbContext<StoreContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")) );
+            services.AddScoped<StoreContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
