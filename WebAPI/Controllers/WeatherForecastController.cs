@@ -4,6 +4,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]// don't show Api in swagger, can't call
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
